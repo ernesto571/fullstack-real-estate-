@@ -10,7 +10,7 @@ export default function WhyChooseUs(){
                 <p className="flex pt-4 justify-center text-[1.2rem] text-[#b5b7cb] font-medium">We connect renters with properties quickly and safely, and help owners reach the right tenants.</p>
 
                 {/* cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 mt-10 gap-7">
+                <div className="grid grid-cols-1 md:grid-cols-3 mt-10 gap-11 md:gap-7 ">
                     {WhyUs.map((w)=> (
                         <div key={w.title}>
                             <img src={w.image} alt={w.title} className="rounded-lg" />
