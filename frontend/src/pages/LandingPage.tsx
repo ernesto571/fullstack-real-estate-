@@ -1,5 +1,6 @@
 import Hero from "../components/LandingPageComponents/Hero";
 import HowItWorks from "../components/LandingPageComponents/HowItWorks";
+import WhyChooseUs from "../components/LandingPageComponents/WhyChooseUs";
 
 export default function LandingPage(){
 
@@ -11,6 +12,10 @@ export default function LandingPage(){
 
             <section>
                 <HowItWorks />
+            </section>
+
+            <section>
+                <WhyChooseUs />
             </section>
         </main>
     )

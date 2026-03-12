@@ -3,7 +3,7 @@ export default function HowItWorks (){
 
     return (
         <section id="how-it-works" className="bg-[#f8f8f8] ">
-            <div className=" flex flex-col-reverse gap-y-11 lg:grid lg:grid-cols-2 pt-[5rem] md:pt-[6rem] w-[96%] md:w-[90%] mx-auto ">
+            <div className=" flex flex-col-reverse gap-y-11 lg:grid lg:grid-cols-2 py-[5rem] md:py-[6rem] w-[96%] md:w-[90%] mx-auto ">
                 {/* cards */}
                 <section className="flex flex-col gap-y-4">
                     {/* card 1 */}
