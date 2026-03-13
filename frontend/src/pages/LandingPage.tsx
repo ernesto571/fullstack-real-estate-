@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import ContactUs from "../components/LandingPageComponents/ContactUs";
 import Hero from "../components/LandingPageComponents/Hero";
 import HowItWorks from "../components/LandingPageComponents/HowItWorks";
@@ -21,6 +22,10 @@ export default function LandingPage(){
 
             <section>
                 <ContactUs />
+            </section>
+
+            <section>
+                <Footer />
             </section>
         </main>
     )
