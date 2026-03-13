@@ -3,7 +3,7 @@ import { WhyUs } from "../../constants";
 export default function WhyChooseUs(){
 
     return (
-        <section id="why-choose-us" className="bg-[#080e51]">
+        <section id="why-us" className="bg-[#080e51]">
             <div className="py-[4rem] md:py-[5rem] w-[96%] md:w-[87%] mx-auto">
                 <h1 className="flex  justify-center text-[2rem] md:text-[3rem] text-white font-medium">Why Choose HomeID</h1>
 
