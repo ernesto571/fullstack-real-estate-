@@ -1,6 +1,24 @@
 import ContactForm from "./ContactForm";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactUs(){
+
+    useGSAP(() => {
+        gsap.from("#contact-us", {
+        opacity: 0,
+        yPercent: 20,
+        duration: 1,
+        ease: "expo.out",
+        scrollTrigger: {
+            trigger: "#contact-us",
+            start: "top 70%",
+        },
+        });
+    }, []);
 
     return (
         <section id="contact-us">

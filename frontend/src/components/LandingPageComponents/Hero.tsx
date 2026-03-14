@@ -12,7 +12,7 @@ export default function Hero (){
         gsap.from(heroSplit.chars, {
             opacity:0,
             yPercent: 50,
-            duration: 1,
+            duration: 0.8,
             delay:1,
             ease: "expo.out",
             stagger: 0.06,
@@ -20,7 +20,7 @@ export default function Hero (){
   
         gsap.from(subtitleSplit.lines, {
             opacity:0,
-            duration: 1.5,
+            duration: 1,
             ease: "expo.out",
             stagger: 0.06,
             delay:3
@@ -45,7 +45,7 @@ export default function Hero (){
                 <p id="hero-subtitle" className="mt-8 font-sans md:text-[1.3rem] font-semibold tracking-wide md:leading-10">A simple marketplace where buyers discover homes and sellers connect with the right buyers.</p>
 
                 <div id="hero-button" className="mt-[3rem] flex gap-9">
-                    <button className="bg-[#e86822] rounded-lg md:text-[1.2rem] font-medium text-white py-2 md:py-4 px-5 md:px-10">Browse Properties</button>
+                    <button aria-label="Become a buyer" className="bg-[#e86822] rounded-lg md:text-[1.2rem] font-medium text-white py-2 md:py-4 px-5 md:px-10">Browse Properties</button>
                     <button className="bg-white rounded-lg md:text-[1.2rem] font-medium text-[#e86822] py-2 md:py-4 px-5 md:px-10">List Your Property</button>
                 </div>
             </div>
