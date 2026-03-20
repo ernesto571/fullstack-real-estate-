@@ -5,16 +5,18 @@ import { useLandlordAuthStore } from "../../store/LandlordAuthStore"
 import AddPropertyModal from "../../components/LandlordComponents/AddpropertyModal"
 import { useLandlordPropertyStore } from "../../store/landlord/LandlordPrpertyStore"
 
+const ITEMS_PER_PAGE = 8
+
 export default function MyProperties() {
   const profile = useLandlordAuthStore((s) => s.profile)
   const [showModal, setShowModal] = useState(false)
   const [deletingId, setDeletingId] = useState<number | null>(null)
   const [editingProperty, setEditingProperty] = useState<any | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
   const { properties, fetchLandlordProperties, isLoading, deleteProperty } = useLandlordPropertyStore()
 
   useEffect(() => {
     fetchLandlordProperties();
-    console.log(properties)
   }, []);
 
   const handleDelete = async (id: number) => {
@@ -25,16 +27,28 @@ export default function MyProperties() {
     setDeletingId(null)
   }
 
+  // ✅ Pagination logic
+  const totalPages = Math.ceil(properties.length / ITEMS_PER_PAGE)
+  const paginatedProperties = properties.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  )
+
   return (
-    <section>
-      <div className="grid grid-cols-6">
-        <section className="col-span-1">
+    // ✅ overflow-hidden on outer so only inner sections scroll
+    <section className="h-screen overflow-hidden">
+      <div className="grid grid-cols-6 h-full">
+
+        {/* ✅ Fixed Sidebar — sticky keeps it in place */}
+        <section className="col-span-1 h-screen sticky top-0">
           <Sidebar />
         </section>
-        <section className="col-span-5 bg-[#f8f8f8] min-h-screen">
 
-          {/* Topbar */}
-          <div className="flex border-b border-gray-200 py-2 bg-white">
+        {/* ✅ Main content scrolls independently */}
+        <section className="col-span-5 bg-[#f8f8f8] h-screen overflow-y-auto flex flex-col">
+
+          {/* ✅ Fixed Topbar — sticky at top of scroll container */}
+          <div className="sticky top-0 z-10 flex border-b border-gray-200 py-2 bg-white">
             <span className="flex justify-between items-center w-[90%] mx-auto">
               <input type="text" className="border border-gray-200 rounded-md py-1 px-4 text-sm" placeholder="Search..." />
               <div className="flex gap-2 border-l border-gray-200 pl-3 items-center">
@@ -45,7 +59,7 @@ export default function MyProperties() {
           </div>
 
           {/* Content */}
-          <div className="w-[90%] mx-auto mt-8">
+          <div className="w-[90%] mx-auto mt-8 flex-1">
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">My Properties</h1>
@@ -62,7 +76,9 @@ export default function MyProperties() {
             {/* Table */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <table className="w-full text-sm">
-                <thead>
+
+                {/* ✅ Fixed table head */}
+                <thead className="sticky top-0 z-10 bg-white">
                   <tr className="border-b border-gray-100 text-left">
                     <th className="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Property</th>
                     <th className="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Location</th>
@@ -72,9 +88,9 @@ export default function MyProperties() {
                     <th className="px-6 py-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {isLoading ? (
-                    // Loading skeleton
                     [...Array(3)].map((_, i) => (
                       <tr key={i} className="border-b border-gray-50 animate-pulse">
                         <td className="px-6 py-4">
@@ -100,7 +116,6 @@ export default function MyProperties() {
                       </tr>
                     ))
                   ) : properties.length === 0 ? (
-                    // Empty state
                     <tr>
                       <td colSpan={6}>
                         <div className="flex flex-col items-center justify-center py-20 px-6">
@@ -121,13 +136,14 @@ export default function MyProperties() {
                       </td>
                     </tr>
                   ) : (
-                    properties.map((property) => (
+                    // ✅ Use paginatedProperties instead of properties
+                    paginatedProperties.map((property) => (
                       <tr key={property.id} className="border-b border-gray-50 hover:bg-gray-50 transition-all">
 
                         {/* Property */}
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            {property.images?.[0] ? (
+                            {property.images?.[0]?.url ? (
                               <img
                                 src={property.images[0].url}
                                 alt={property.title}
@@ -203,6 +219,50 @@ export default function MyProperties() {
                 </tbody>
               </table>
             </div>
+
+            {/* ✅ Pagination */}
+            {!isLoading && properties.length > ITEMS_PER_PAGE && (
+              <div className="flex items-center justify-between py-4 mt-2">
+                <p className="text-xs text-gray-400">
+                  Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, properties.length)} of {properties.length} properties
+                </p>
+                <div className="flex items-center gap-1">
+                  {/* Prev */}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="px-3 py-1.5 text-xs font-medium text-gray-500 border border-gray-200 rounded-lg hover:bg-gray-100 disabled:opacity-40 transition-all"
+                  >
+                    ← Prev
+                  </button>
+
+                  {/* Page numbers */}
+                  {[...Array(totalPages)].map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(i + 1)}
+                      className={`w-8 h-8 text-xs font-medium rounded-lg transition-all
+                        ${currentPage === i + 1
+                          ? "bg-[#32cddb] text-white shadow-sm shadow-[#32cddb]/20"
+                          : "text-gray-500 border border-gray-200 hover:bg-gray-100"
+                        }`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+
+                  {/* Next */}
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-1.5 text-xs font-medium text-gray-500 border border-gray-200 rounded-lg hover:bg-gray-100 disabled:opacity-40 transition-all"
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
           </div>
         </section>
       </div>
@@ -211,18 +271,17 @@ export default function MyProperties() {
       {showModal && (
         <AddPropertyModal onClose={() => {
           setShowModal(false)
-          fetchLandlordProperties() // ✅ refresh after adding
+          fetchLandlordProperties()
         }} />
       )}
 
       {/* Edit Modal */}
       {editingProperty && (
         <AddPropertyModal
-            property={editingProperty}  // ✅ pass it here
-
+          property={editingProperty}
           onClose={() => {
             setEditingProperty(null)
-            fetchLandlordProperties() // ✅ refresh after editing
+            fetchLandlordProperties()
           }}
         />
       )}
