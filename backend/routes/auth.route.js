@@ -1,6 +1,6 @@
 import express from "express";
 import { requireLogin } from "../middleware/auth.middleware.js";
-import { createRenterProfile, getUserProfile } from "../controllers/renter.auth.controller.js";
+import { createRenterProfile, getUserProfile } from "../controllers/renter/renter.auth.controller.js";
 import { createLandlordProfile } from "../controllers/landlord/landlord.auth.controller.js";
 
 const router = express.Router();

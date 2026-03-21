@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import userRoutes from "../routes/auth.route.js"
 import landlordRoutes from "../routes/landlord/landlord.route.js"
+import renterRoutes from "../routes/renter/remter.route.js"
 import { clerkMiddleware } from "@clerk/express";
 
 import "dotenv/config";
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/landlord", landlordRoutes);
-
+app.use("api/renter", renterRoutes)
 
 
 export default app;

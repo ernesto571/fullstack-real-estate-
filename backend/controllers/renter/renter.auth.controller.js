@@ -1,4 +1,4 @@
-import { sql } from "../config/db.js";
+import { sql } from "../../config/db.js";
 import { clerkClient } from "@clerk/express";
 
 export const createRenterProfile = async (req, res) => {

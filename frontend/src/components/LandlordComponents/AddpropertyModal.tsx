@@ -176,56 +176,55 @@ export default function AddPropertyModal({ onClose, property }: Props) {
             <div className="flex flex-col gap-4">
               <div>
                 <label className={labelClass}>Title</label>
-                <input name="title" value={formData.title} onChange={handleChange} className={inputClass} placeholder="e.g. Modern 3 Bedroom Apartment" />
+                <input name="title" value={formData.title} onChange={handleChange} className={inputClass} placeholder ="e.g. Modern 3 Bedroom Apartment" />
               </div>
               <div>
                 <label className={labelClass}>Description</label>
-                <textarea name="description" value={formData.description} onChange={handleChange} className={`${inputClass} resize-none h-20`} placeholder="Describe the property..." />
+                <textarea name="description" value={formData.description} required onChange={handleChange} className={`${inputClass} resize-none h-20`} placeholder="Describe the property..." />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className={labelClass}>Price (£)</label>
-                  <input name="price" type="number" value={formData.price} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="price" type="number" value={formData.price} onChange={handleChange} className={inputClass} placeholder="0" required/>
                 </div>
                 <div>
                   <label className={labelClass}>Category</label>
                   <select name="category" value={formData.category} onChange={handleChange} className={inputClass}>
                     <option value="rent">Rent</option>
-                    <option value="sale">Sale</option>
                   </select>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className={labelClass}>Bedrooms</label>
-                  <input name="numOfBedrooms" type="number" value={formData.numOfBedrooms} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="numOfBedrooms" type="number" required value={formData.numOfBedrooms} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
                 <div>
                   <label className={labelClass}>Bathrooms</label>
-                  <input name="numOfBathrooms" type="number" value={formData.numOfBathrooms} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="numOfBathrooms" type="number" required value={formData.numOfBathrooms} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
                 <div>
                   <label className={labelClass}>Garages</label>
-                  <input name="numOfGarages" type="number" value={formData.numOfGarages} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="numOfGarages" type="number" required value={formData.numOfGarages} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className={labelClass}>Rooms</label>
-                  <input name="numOfRooms" type="number" value={formData.numOfRooms} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="numOfRooms" type="number" required value={formData.numOfRooms} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
                 <div>
                   <label className={labelClass}>Size (sqft)</label>
-                  <input name="size_sqft" type="number" value={formData.size_sqft} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="size_sqft" type="number" required value={formData.size_sqft} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
                 <div>
                   <label className={labelClass}>Land Size (sqft)</label>
-                  <input name="land_size_sqft" type="number" value={formData.land_size_sqft} onChange={handleChange} className={inputClass} placeholder="0" />
+                  <input name="land_size_sqft" type="number"  required value={formData.land_size_sqft} onChange={handleChange} className={inputClass} placeholder="0" />
                 </div>
               </div>
               <div>
                 <label className={labelClass}>Year Built</label>
-                <input name="year_built" type="number" value={formData.year_built} onChange={handleChange} className={inputClass} placeholder="e.g. 2020" />
+                <input name="year_built" type="number" value={formData.year_built} required onChange={handleChange} className={inputClass} placeholder="e.g. 2020" />
               </div>
             </div>
           )}
@@ -235,25 +234,25 @@ export default function AddPropertyModal({ onClose, property }: Props) {
             <div className="flex flex-col gap-4">
               <div>
                 <label className={labelClass}>Street Address</label>
-                <input name="address" value={formData.address} onChange={handleChange} className={inputClass} placeholder="e.g. 14 Baker Street" />
+                <input name="address" value={formData.address} onChange={handleChange} required className={inputClass} placeholder="e.g. 14 Baker Street" />
               </div>
               <div>
                 <label className={labelClass}>Neighbourhood</label>
-                <input name="neighbourhood" value={formData.neighbourhood} onChange={handleChange} className={inputClass} placeholder="e.g. Marylebone" />
+                <input name="neighbourhood" value={formData.neighbourhood} required onChange={handleChange} className={inputClass} placeholder="e.g. Marylebone" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className={labelClass}>City</label>
-                  <input name="city" value={formData.city} onChange={handleChange} className={inputClass} placeholder="e.g. London" />
+                  <input name="city" value={formData.city} required onChange={handleChange} className={inputClass} placeholder="e.g. London" />
                 </div>
                 <div>
                   <label className={labelClass}>State</label>
-                  <input name="state" value={formData.state} onChange={handleChange} className={inputClass} placeholder="e.g. Greater London" />
+                  <input name="state" value={formData.state} required onChange={handleChange} className={inputClass} placeholder="e.g. Greater London" />
                 </div>
               </div>
               <div>
                 <label className={labelClass}>Country</label>
-                <input name="country" value={formData.country} onChange={handleChange} className={inputClass} placeholder="e.g. United Kingdom" />
+                <input name="country" value={formData.country} required onChange={handleChange} className={inputClass} placeholder="e.g. United Kingdom" />
               </div>
             </div>
           )}
@@ -292,7 +291,7 @@ export default function AddPropertyModal({ onClose, property }: Props) {
                 <span className="text-2xl mb-1">📁</span>
                 <span className="text-sm font-medium text-gray-500">Click to upload images</span>
                 <span className="text-xs text-gray-300 mt-1">JPG, PNG, WEBP — up to 10 files</span>
-                <input type="file" multiple accept="image/*" onChange={handleImageChange} className="hidden" />
+                <input type="file" multiple accept="image/*" required onChange={handleImageChange} className="hidden" />
               </label>
 
               {/* New image count + clear */}
