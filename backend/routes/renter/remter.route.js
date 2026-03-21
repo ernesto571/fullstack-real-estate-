@@ -1,9 +1,9 @@
 import express from "express"
-import { requireLandlord, requireLogin } from "../../middleware/auth.middleware.js"
+import { requireLogin, requireRenter } from "../../middleware/auth.middleware.js"
 import { getListings } from "../../controllers/renter/listings.controller.js"
 
 const router = express.Router()
 
-router.get("/listings", requireLogin, requireLandlord, getListings )
+router.get("/listings", requireLogin, requireRenter, getListings )
 
 export default router

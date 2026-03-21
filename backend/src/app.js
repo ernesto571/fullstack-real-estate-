@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/landlord", landlordRoutes);
-app.use("api/renter", renterRoutes)
+app.use("/api/renter", renterRoutes)
 
 
 export default app;

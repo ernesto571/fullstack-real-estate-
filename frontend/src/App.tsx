@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
-import ListingsPage from "./pages/ListingsPage";
+import ListingsPage from "./pages/RenterPages/ListingsPage";
 import { Toaster } from "react-hot-toast";
 import RenterAuthListener from "./hooks/RenterAuthListener";
 import LandlordAuthListener from "./hooks/LandlordAuthListener";
@@ -10,6 +10,7 @@ import Dashboard from "./pages/LandlordPages/Dashboard";
 import { useRenterAuthStore } from "./store/RenterAuthStore";
 import { useLandlordAuthStore } from "./store/LandlordAuthStore";
 import MyProperties from "./pages/LandlordPages/MyProperties";
+import PropertyDetailsPage from "./pages/RenterPages/PropertyDetailsPage";
 
 function RenterRoute({ children }: { children: React.ReactNode }) {
   const { isSignedIn, isLoaded } = useUser();
@@ -52,6 +53,7 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/listings" element={<RenterRoute><ListingsPage /></RenterRoute>} />
+          <Route path="/listings/:id" element={<RenterRoute><PropertyDetailsPage /></RenterRoute>} />
         </Route>
 
         {/* ✅ These pages have NO Navbar */}
