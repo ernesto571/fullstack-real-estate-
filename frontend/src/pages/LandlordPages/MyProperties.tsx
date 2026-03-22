@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { UserButton } from "@clerk/clerk-react"
 import Sidebar from "../../components/LandlordComponents/Sidebar"
-import { useLandlordAuthStore } from "../../store/LandlordAuthStore"
+import { useLandlordAuthStore } from "../../store/landlord/LandlordAuthStore"
 import AddPropertyModal from "../../components/LandlordComponents/AddpropertyModal"
 import { useLandlordPropertyStore } from "../../store/landlord/LandlordPrpertyStore"
 

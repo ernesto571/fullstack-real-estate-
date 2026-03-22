@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { useLocation } from "react-router-dom";
 import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
-import { useLandlordAuthStore } from "../store/LandlordAuthStore";
+import { useLandlordAuthStore } from "../store/landlord/LandlordAuthStore";
 
 
 export default function Navbar() {

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { useClerk } from "@clerk/clerk-react"
-import { useLandlordAuthStore } from "../../store/LandlordAuthStore"
+import { useLandlordAuthStore } from "../../store/landlord/LandlordAuthStore"
 
 const sidebarLinks = [
   { id: 1, to: "/dashboard", label: "Overview", end: true,

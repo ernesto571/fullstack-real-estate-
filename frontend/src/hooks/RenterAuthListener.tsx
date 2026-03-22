@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
-import { useRenterAuthStore } from "../store/RenterAuthStore";
+import { useRenterAuthStore } from "../store/renter/RenterAuthStore";
 
 function RenterAuthListener() {
   const { user, isSignedIn, isLoaded } = useUser();

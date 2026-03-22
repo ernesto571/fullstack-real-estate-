@@ -45,17 +45,7 @@ async function initDB() {
             );
         `
         console.log("✅ Properties table created/verified")
-        // ✅ Migration runs AFTER table exists
-await sql`ALTER TABLE properties DROP CONSTRAINT IF EXISTS properties_landlord_id_fkey`;
-await sql`ALTER TABLE properties ALTER COLUMN landlord_id TYPE INTEGER USING landlord_id::INTEGER`;
-await sql`
-    ALTER TABLE properties 
-    ADD CONSTRAINT properties_landlord_id_fkey 
-    FOREIGN KEY (landlord_id) REFERENCES users(id) ON DELETE CASCADE
-`;
-console.log("✅ Migration: landlord_id constraint verified");
 
- 
         await sql `
             CREATE TABLE IF NOT EXISTS property_addresses (
                 id SERIAL PRIMARY KEY,
@@ -86,6 +76,21 @@ console.log("✅ Migration: landlord_id constraint verified");
             );
          `;
         console.log("✅ Amenities table created/verified")
+
+        await sql`
+            CREATE TABLE IF NOT EXISTS enquiries (
+                id SERIAL PRIMARY KEY,
+                renter_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+                property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE,
+                full_name VARCHAR(255) NOT NULL,
+                phone_number VARCHAR(20) NOT NULL,
+                email_address VARCHAR(255) NOT NULL,
+                message TEXT NOT NULL,
+                status VARCHAR(20) CHECK (status IN ('unread', 'read', 'replied')) DEFAULT 'unread',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+        console.log("✅ Enquiries table created/verified");
 
     } catch (error) {
         console.error("❌ Error initDB:", error);

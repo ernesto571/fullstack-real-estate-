@@ -2,11 +2,13 @@ import { useParams } from "react-router-dom"
 import { useListingsStore } from "../../store/renter/ListingsStore"
 import { useEffect } from "react"
 import Topbar from "../../components/RenterComponents/Topbar"
-import { Clock } from "lucide-react"
+import { Clock, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
+import Footer from "../../components/Footer"
+import EnquiryForm from "../../components/RenterComponents/EnquiryForm"
 
 export default function PropertyDetailsPage(){
     const {id} = useParams()
-    const {isLoading, allListings, fetchListings} = useListingsStore()
+    const {allListings, fetchListings} = useListingsStore()
     
     useEffect(()=> {
         fetchListings()
@@ -100,12 +102,12 @@ export default function PropertyDetailsPage(){
                 </div>
             </section>
 
-            <section className="mt-14 bg-[#f2f2f2]">
+            <section className="mt-14 pb-10 bg-[#f2f2f2]">
                 <div className="grid grid-cols-3 gap-x-12  w-[85%] mx-auto pt-14">
                     {/* left section */}
                     <section className="flex flex-col col-span-2 gap-y-3">
                         {/* description */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Description</h4>
                                 <p className="pt-3 text-gray-600">{property.description}</p>
@@ -113,7 +115,7 @@ export default function PropertyDetailsPage(){
                         </div>
 
                         {/* overview */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Overview</h4>
                                 <div className="pt-3 text-gray-600 grid grid-cols-4 gap-5">
@@ -133,7 +135,7 @@ export default function PropertyDetailsPage(){
                         </div>
 
                         {/* Address */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <span className="flex justify-between items-center">
                                     <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Address</h4>
@@ -160,7 +162,7 @@ export default function PropertyDetailsPage(){
                         </div>
 
                         {/* Details */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Details</h4>
                                 <div className="pt-5 text-gray-600 grid grid-cols-2 gap-5">
@@ -177,7 +179,7 @@ export default function PropertyDetailsPage(){
                         </div>
 
                         {/* Features */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Features</h4>
                                 <div className="pt-5 text-gray-600 grid grid-cols-3 gap-5">
@@ -192,10 +194,10 @@ export default function PropertyDetailsPage(){
                         </div>
 
                         {/* location */}
-                        <div className=" bg-white rounded-md">
+                        <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Location</h4>
-                                <div className="w-full h-[400px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm mt-6">
+                                <div className="w-full h-[500px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm mt-6">
                                     <iframe
                                         src={mapSrc}
                                         width="100%"
@@ -210,10 +212,55 @@ export default function PropertyDetailsPage(){
                         </div>
                     </section>
                     
+                    <section className=" col-span-1 w-full sticky top-0" >
+                        {/* profile */}
+                        <div className=" bg-white rounded-sm w-full">
+                            <div className=" flex flex-col justify-center items-center py-8">
+                                <img src={property?.landlord_profile_pic} alt="Prof pic" className="w-[160px] rounded-full flex justify-center" />
+
+                                <span className="my-3 flex flex-col gap-2 justify-center text-center text-gray-600">
+                                    <p className="text-[1.3rem] font-medium tracking-wide text-[#101549]">{property?.landlord_first_name} {property?.landlord_last_name}</p>
+                                    <p>Sales Executive</p>
+                                    <span className="flex ">
+                                        <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774172485/star-svgrepo-com_1_ao3bib.svg" alt="star icon" className="w-[20px]"/>
+                                        <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774172485/star-svgrepo-com_1_ao3bib.svg" alt="star icon" className="w-[20px]"/>
+                                        <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774172485/star-svgrepo-com_1_ao3bib.svg" alt="star icon" className="w-[20px]"/>
+                                        <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774172485/star-svgrepo-com_1_ao3bib.svg" alt="star icon" className="w-[20px]"/>
+                                        <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774172485/star-svgrepo-com_1_ao3bib.svg" alt="star icon" className="w-[20px]"/>
+                                        <p>(10 reviews)</p>
+                                    </span>
+                                    <p className="font-medium">{property?.landlord_email}</p>
+                                    <p className="font-semibold text-[#101549]">+234 802 741 5876</p>
+                                </span>
+
+                                {/* social links */}
+                                <span className="w-[80%] gap-5 py-3 mt-2 border-t border-b border-gray-200 mx-auto flex justify-center items-center">
+                                    <button className="rounded-full p-2 border border-gray-200 bg-white hover:bg-[#e86822] hover:border-none transition-all group">
+                                        <Facebook className="w-[20px] h-[20px] text-[#696969] fill-[#696969] group-hover:fill-white group-hover:text-white transition-all" />
+                                    </button>                                    
+                                    <button className="rounded-full p-2 border border-gray-200 bg-white hover:bg-[#e86822] hover:border-none transition-all group">
+                                        <Twitter className="w-[20px] h-[20px] text-[#696969] fill-[#696969] group-hover:fill-white group-hover:text-white transition-all" />
+                                    </button> 
+                                    <button className="rounded-full p-2 border border-gray-200 bg-white hover:bg-[#e86822] hover:border-none transition-all group">
+                                        <Linkedin className="w-[20px] h-[20px] text-[#696969] fill-[#696969] group-hover:fill-white group-hover:text-white transition-all" />
+                                    </button> 
+                                    <button className="rounded-full p-2 border border-gray-200 bg-white hover:bg-[#e86822] hover:border-none transition-all group">
+                                        <Instagram className="w-[20px] h-[20px] text-[#696969]  group-hover:text-white transition-all" />
+                                    </button> 
+                                </span>
+
+                            </div>
+                            <div className="w-[80%] mx-auto pb-8">
+                             <EnquiryForm property={property}/>
+                            </div>
+                        </div>
+
+                        
+                    </section>
                 </div>
                 
             </section>
-            
+            <Footer />
         </section>
     )
 }

@@ -7,8 +7,8 @@ import RenterAuthListener from "./hooks/RenterAuthListener";
 import LandlordAuthListener from "./hooks/LandlordAuthListener";
 import { useUser } from "@clerk/clerk-react";
 import Dashboard from "./pages/LandlordPages/Dashboard";
-import { useRenterAuthStore } from "./store/RenterAuthStore";
-import { useLandlordAuthStore } from "./store/LandlordAuthStore";
+import { useRenterAuthStore } from "./store/renter/RenterAuthStore";
+import { useLandlordAuthStore } from "./store/landlord/LandlordAuthStore";
 import MyProperties from "./pages/LandlordPages/MyProperties";
 import PropertyDetailsPage from "./pages/RenterPages/PropertyDetailsPage";
 

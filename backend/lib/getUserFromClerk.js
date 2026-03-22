@@ -15,6 +15,8 @@ const getUserFromClerk = async (req) => {
     }
 
     const clerkUser = await clerkClient.users.getUser(clerkUserId);
+    const renterEmail = clerkUser.emailAddresses[0].emailAddress;
+    const renterFirstName = clerkUser.firstName;
 
     const dbUser = await sql`
       SELECT id, first_name, last_name FROM users WHERE clerk_id = ${clerkUserId} LIMIT 1

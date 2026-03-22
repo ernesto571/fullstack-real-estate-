@@ -4,6 +4,10 @@ import toast from "react-hot-toast";
 
 interface Listing {
     id: number;
+    landlord_first_name: string;
+    landlord_last_name: string;
+    landlord_email: string;
+    landlord_profile_pic: string;
     title: string;
     description: string;
     price: number;

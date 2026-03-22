@@ -37,7 +37,6 @@ const queryAndCache = async (key, queryFunction) => {
 
   return freshData;
 };
-
 export const getListings = async (req, res) => {
   try {
       const listings = await queryAndCache('listings', async () => {
@@ -48,12 +47,18 @@ export const getListings = async (req, res) => {
                   ARRAY_AGG(DISTINCT jsonb_build_object('id', pi.id, 'url', pi.image_url)) 
                       FILTER (WHERE pi.image_url IS NOT NULL) AS images,
                   ARRAY_AGG(DISTINCT pam.amenity_name) 
-                      FILTER (WHERE pam.amenity_name IS NOT NULL) AS amenities
+                      FILTER (WHERE pam.amenity_name IS NOT NULL) AS amenities,
+                  u.first_name AS landlord_first_name,
+                  u.last_name AS landlord_last_name,
+                  u.email AS landlord_email,
+                  u.profile_pic AS landlord_profile_pic
               FROM properties p
               LEFT JOIN property_addresses pa ON pa.property_id = p.id
               LEFT JOIN property_images pi ON pi.property_id = p.id
               LEFT JOIN property_amenities pam ON pam.property_id = p.id
-              GROUP BY p.id, pa.address, pa.neighbourhood, pa.city, pa.state, pa.country
+              LEFT JOIN users u ON u.id = p.landlord_id
+              GROUP BY p.id, pa.address, pa.neighbourhood, pa.city, pa.state, pa.country,
+                       u.first_name, u.last_name, u.email, u.profile_pic
           `
       })
       console.log("fetched all listings:", listings.length)
