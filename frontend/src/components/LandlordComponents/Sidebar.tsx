@@ -3,10 +3,10 @@ import { useClerk } from "@clerk/clerk-react"
 import { useLandlordAuthStore } from "../../store/landlord/LandlordAuthStore"
 
 const sidebarLinks = [
-  { id: 1, to: "/dashboard", label: "Overview", end: true,
-    icon: "https://res.cloudinary.com/dsljbxkfy/image/upload/v1773791187/dashboard-1-svgrepo-com_1_kwx5k3.svg" },
-  { id: 2, to: "/dashboard/my-properties", label: "My Properties",
+  { id: 1, to: "/dashboard", label: "My Properties", end:true,
     icon: "https://res.cloudinary.com/dsljbxkfy/image/upload/v1773791438/property-svgrepo-com_1_f0lzpv.svg" },
+    { id: 1, to: "/dashboard/enquiries", label: "Enquiries", 
+    icon: "https://res.cloudinary.com/dsljbxkfy/image/upload/v1773791187/dashboard-1-svgrepo-com_1_kwx5k3.svg" },
 ]
 
 export default function Sidebar() {

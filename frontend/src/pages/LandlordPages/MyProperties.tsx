@@ -4,6 +4,8 @@ import Sidebar from "../../components/LandlordComponents/Sidebar"
 import { useLandlordAuthStore } from "../../store/landlord/LandlordAuthStore"
 import AddPropertyModal from "../../components/LandlordComponents/AddpropertyModal"
 import { useLandlordPropertyStore } from "../../store/landlord/LandlordPrpertyStore"
+import { Bell } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const ITEMS_PER_PAGE = 8
 
@@ -14,6 +16,8 @@ export default function MyProperties() {
   const [editingProperty, setEditingProperty] = useState<any | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const { properties, fetchLandlordProperties, isLoading, deleteProperty } = useLandlordPropertyStore()
+  const navigate = useNavigate()
+  const unreadCount = 0 
 
   useEffect(() => {
     fetchLandlordProperties();
@@ -51,7 +55,21 @@ export default function MyProperties() {
           <div className="sticky top-0 z-10 flex border-b border-gray-200 py-2 bg-white">
             <span className="flex justify-between items-center w-[90%] mx-auto">
               <input type="text" className="border border-gray-200 rounded-md py-1 px-4 text-sm" placeholder="Search..." />
-              <div className="flex gap-2 border-l border-gray-200 pl-3 items-center">
+              <div className="flex gap-3 border-l border-gray-200 pl-3 items-center">
+                
+                {/* ✅ Bell icon */}
+                <button
+                  onClick={() => navigate("/dashboard/enquiries")}
+                  className="relative p-2 rounded-lg hover:bg-gray-100 transition-all"
+                >
+                  <Bell size={18} className="text-gray-500" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
+
                 <UserButton />
                 <p className="text-gray-700 text-sm">{profile?.first_name} {profile?.last_name}</p>
               </div>

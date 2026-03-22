@@ -6,11 +6,11 @@ import { Toaster } from "react-hot-toast";
 import RenterAuthListener from "./hooks/RenterAuthListener";
 import LandlordAuthListener from "./hooks/LandlordAuthListener";
 import { useUser } from "@clerk/clerk-react";
-import Dashboard from "./pages/LandlordPages/Dashboard";
 import { useRenterAuthStore } from "./store/renter/RenterAuthStore";
 import { useLandlordAuthStore } from "./store/landlord/LandlordAuthStore";
 import MyProperties from "./pages/LandlordPages/MyProperties";
 import PropertyDetailsPage from "./pages/RenterPages/PropertyDetailsPage";
+import Enquiries from "./pages/LandlordPages/Enquiries";
 
 function RenterRoute({ children }: { children: React.ReactNode }) {
   const { isSignedIn, isLoaded } = useUser();
@@ -57,8 +57,8 @@ function App() {
         </Route>
 
         {/* ✅ These pages have NO Navbar */}
-        <Route path="/dashboard" element={<LandlordRoute><Dashboard /></LandlordRoute>}></Route>
-        <Route path="/dashboard/my-properties" element={<LandlordRoute><MyProperties /></LandlordRoute>}></Route>
+        <Route path="/dashboard" element={<LandlordRoute><MyProperties /></LandlordRoute>}></Route>
+        <Route path="/dashboard/enquiries" element={<LandlordRoute><Enquiries /></LandlordRoute>}></Route>
 
       </Routes>
       <Toaster

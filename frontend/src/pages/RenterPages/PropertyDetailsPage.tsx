@@ -212,7 +212,7 @@ export default function PropertyDetailsPage(){
                         </div>
                     </section>
                     
-                    <section className=" col-span-1 w-full sticky top-0" >
+                    <section className=" col-span-1 w-full sticky top-6 h-fit" >
                         {/* profile */}
                         <div className=" bg-white rounded-sm w-full">
                             <div className=" flex flex-col justify-center items-center py-8">
