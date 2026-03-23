@@ -4,12 +4,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "seed:property": "node seed/index.js"
+    "seed:property": "node seed/index.js",
+    "start": "node src/server.js"
   },
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "ISC", 
   "description": "",
   "dependencies": {
     "@clerk/express": "^2.0.4",

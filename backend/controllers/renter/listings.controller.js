@@ -68,3 +68,51 @@ export const getListings = async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 }
+
+export const searchListings = async (req, res) => {
+  try {
+    // Extract search query from URL (e.g., /api/listings/search?q=modern+flat)
+    const { q } = req.query;
+
+    if (!q || q.trim() === "") {
+      return res.status(200).json({ success: true, data: [] });
+    }
+
+    // Format the search term for SQL partial matching
+    const searchTerm = `%${q}%`;
+
+    const results = await sql`
+      SELECT 
+        p.*,
+        pa.address, pa.neighbourhood, pa.city, pa.state, pa.country,
+        ARRAY_AGG(DISTINCT jsonb_build_object('id', pi.id, 'url', pi.image_url)) 
+          FILTER (WHERE pi.image_url IS NOT NULL) AS images,
+        ARRAY_AGG(DISTINCT pam.amenity_name) 
+          FILTER (WHERE pam.amenity_name IS NOT NULL) AS amenities,
+        u.first_name AS landlord_first_name,
+        u.last_name AS landlord_last_name,
+        u.email AS landlord_email,
+        u.profile_pic AS landlord_profile_pic
+      FROM properties p
+      LEFT JOIN property_addresses pa ON pa.property_id = p.id
+      LEFT JOIN property_images pi ON pi.property_id = p.id
+      LEFT JOIN property_amenities pam ON pam.property_id = p.id
+      LEFT JOIN users u ON u.id = p.landlord_id
+      WHERE 
+        p.title ILIKE ${searchTerm} OR 
+        p.description ILIKE ${searchTerm} OR 
+        pa.city ILIKE ${searchTerm} OR
+        pa.neighbourhood ILIKE ${searchTerm} OR
+        pa.state ILIKE ${searchTerm}
+      GROUP BY p.id, pa.address, pa.neighbourhood, pa.city, pa.state, pa.country,
+               u.first_name, u.last_name, u.email, u.profile_pic
+      ORDER BY p.created_at DESC
+    `;
+
+    console.log(`[SEARCH] Query: "${q}" | Hits: ${results.length}`);
+    res.status(200).json({ success: true, data: results });
+  } catch (error) {
+    console.error("Error in searchListings:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
