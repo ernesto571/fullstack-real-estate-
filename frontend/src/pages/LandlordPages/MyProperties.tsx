@@ -54,7 +54,7 @@ export default function MyProperties() {
           {/* ✅ Fixed Topbar — sticky at top of scroll container */}
           <div className="sticky top-0 z-10 flex border-b border-gray-200 py-2 bg-white">
             <span className="flex justify-between items-center w-[90%] mx-auto">
-              <input type="text" className="border border-gray-200 rounded-md py-1 px-4 text-sm" placeholder="Search..." />
+              <input type="text" className="hidden lg:flex border border-gray-200 rounded-md py-1 px-4 text-sm" placeholder="Search..." />
               <div className="flex gap-3 border-l border-gray-200 pl-3 items-center">
                 
                 {/* ✅ Bell icon */}
@@ -75,9 +75,15 @@ export default function MyProperties() {
               </div>
             </span>
           </div>
-
+          
+          <div className="flex lg:hidden mt-7  items-center gap-2 bg-[#94e5ec]/15 border border-[#94e5ec] text-[#32cddb] text-xs font-medium px-4 py-2.5 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            To add a property please use a laptop
+          </div>
           {/* Content */}
-          <div className="w-[90%] mx-auto mt-8 flex-1">
+          <div className="hidden lg:flex w-[90%] mx-auto mt-8 flex-1">
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">My Properties</h1>

@@ -11,11 +11,23 @@ import { useLandlordAuthStore } from "./store/landlord/LandlordAuthStore";
 import MyProperties from "./pages/LandlordPages/MyProperties";
 import PropertyDetailsPage from "./pages/RenterPages/PropertyDetailsPage";
 import Enquiries from "./pages/LandlordPages/Enquiries";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function RenterRoute({ children }: { children: React.ReactNode }) {
   const { isSignedIn, isLoaded } = useUser();
   const profile = useRenterAuthStore((s) => s.profile);
   const loading = useRenterAuthStore((s) => s.loading);
+
+  useEffect(() => {
+    if (isLoaded && !loading && isSignedIn && profile?.role === "landlord") {
+      toast.error("This page is for renters only. Please use a renter account.")
+    }
+    if (isLoaded && !loading && !isSignedIn) {
+      toast.error("Please sign in to access this page.")
+    }
+  }, [isLoaded, loading, isSignedIn, profile])
+
   if (!isLoaded || loading) return null;
   if (!isSignedIn) return <Navigate to="/" replace />;
   if (profile?.role !== "renter") return <Navigate to="/" replace />;
@@ -26,8 +38,17 @@ function LandlordRoute({ children }: { children: React.ReactNode }) {
   const { isSignedIn, isLoaded } = useUser();
   const profile = useLandlordAuthStore((s) => s.profile);
   const loading = useLandlordAuthStore((s) => s.loading);
+
+  useEffect(() => {
+    if (isLoaded && !loading && isSignedIn && profile?.role === "renter") {
+      toast.error("This page is for landlords only. Please use a landlord account.")
+    }
+    if (isLoaded && !loading && !isSignedIn) {
+      toast.error("Please sign in to access this page.")
+    }
+  }, [isLoaded, loading, isSignedIn, profile])
+
   if (!isLoaded || loading) return null;
-  if (!isSignedIn) return <Navigate to="/" replace />;
   if (profile?.role !== "landlord") return <Navigate to="/" replace />;
   return <>{children}</>;
 }

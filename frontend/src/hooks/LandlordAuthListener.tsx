@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useLandlordAuthStore } from "../store/landlord/LandlordAuthStore";
-
 function LandlordAuthListener() {
   const { user, isSignedIn, isLoaded } = useUser();
   const { createLandlordProfile, fetchLandlordProfile } = useLandlordAuthStore();

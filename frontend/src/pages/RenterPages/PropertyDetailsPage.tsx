@@ -70,22 +70,23 @@ export default function PropertyDetailsPage(){
         <section className="pt-[4rem]">
             <Topbar />
 
-            <section className="w-[85%] mx-auto mt-[3rem]">
-                <span className="flex gap-5 items-center text-gray-500">
-                    <p className=" top-2 left-2 text-xs font-semibold bg-[#65b110] text-white py-2 px-4 rounded-sm tracking-wide">FOR RENT</p>
-                    <p className="flex gap-2"><Clock className="text-gray-400" /> {yearsAgo} years ago</p>
-                    <span className="flex gap-2">
+            <section className="w-[95%] md:w-[85%] mx-auto mt-[3rem]">
+                <span className="flex gap-3 md:gap-5 items-center text-gray-500">
+                    <p className="text-sm top-2 left-2 md:text-xs font-semibold bg-[#65b110] text-white py-2 px-2 md:px-4 rounded-md
+                     tracking-wide">FOR RENT</p>
+                    <p className="flex text-sm md:text-base gap-1 md:gap-2 items-center text-center"><Clock className="text-gray-400" /> {yearsAgo} years ago</p>
+                    <span className="flex gap-1 md:gap-2 text-sm md:text-base items-center text-center">
                         <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774109067/eye-svgrepo-com_klicjn.svg" alt="eye icon" className="flex w-[25px] justify-center" />
                         <p >2435 views</p>
                     </span>
                 </span>
-                <h2 className="my-2 text-[2rem] font-medium text-[#181e65]">{property.title}</h2>
+                <h2 className="my-2 text-[1.8rem] md:text-[2rem] font-medium text-[#181e65]">{property.title}</h2>
                 <span className="flex items-center gap-2 text-gray-500">
-                    <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774111081/location-pin-svgrepo-com_2_nnikf2.svg" className="w-[25px]" alt="pin" />
-                    <p className="text-[1.1rem] tracking-wide">{property.address}, {property.neighbourhood}</p>
+                    <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774111081/location-pin-svgrepo-com_2_nnikf2.svg" className="w-[20px] md:w-[25px]" alt="pin" />
+                    <p className="md:text-[1.1rem] tracking-wide">{property.address}, {property.neighbourhood}</p>
                 </span>
                 {/* pic */}
-                <div className="grid grid-cols-4 mt-10 gap-3 h-[500px]">
+                <div className="grid grid-cols-2 md:grid-cols-4 mt-10 gap-3 h-[500px]">
                     {/* Main big image */}
                     <img  src={property.images[0].url}  className="col-span-2 rounded-md w-full h-full hover:brightness-75 transition-transform ease-in-out  object-cover"  alt="pic-1" />
                     {/* Middle column */}
@@ -103,24 +104,24 @@ export default function PropertyDetailsPage(){
             </section>
 
             <section className="mt-14 pb-10 bg-[#f2f2f2]">
-                <div className="grid grid-cols-3 gap-x-12  w-[85%] mx-auto pt-14">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-6 lg:gap-x-12 w-[90%] md:w-[85%] mx-auto pt-14">
                     {/* left section */}
                     <section className="flex flex-col col-span-2 gap-y-3">
                         {/* description */}
                         <div className=" bg-white rounded-sm">
-                            <div className="max-w-[92%] mx-auto py-6">
+                            <div className="w-[84%] md:max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Description</h4>
-                                <p className="pt-3 text-gray-600">{property.description}</p>
+                                <p className="pt-3 text-[0.9rem] md:text-base text-gray-600">{property.description}</p>
                             </div>
                         </div>
 
                         {/* overview */}
                         <div className=" bg-white rounded-sm">
-                            <div className="max-w-[92%] mx-auto py-6">
+                            <div className="w-[84%] md:max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Overview</h4>
-                                <div className="pt-3 text-gray-600 grid grid-cols-4 gap-5">
+                                <div className="pt-3 text-gray-600 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                                     {info.map((i) => (
-                                        <div key={i.title} className="flex items-center gap-3 gap-y-5">
+                                        <div key={i.title} className="flex items-center gap-x-3 gap-y-5">
                                             <span className="bg-white rounded-md shadow-md p-3">
                                                 <img src={i.icon} alt="icon" className="w-[35px]" />
                                             </span>
@@ -136,10 +137,10 @@ export default function PropertyDetailsPage(){
 
                         {/* Address */}
                         <div className=" bg-white rounded-sm">
-                            <div className="max-w-[92%] mx-auto py-6">
-                                <span className="flex justify-between items-center">
+                            <div className="w-[84%] md:max-w-[92%] mx-auto py-6">
+                                <span className="flex flex-col md:flex-row justify-between">
                                     <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Address</h4>
-                                    <button className="bg-[#e86822] rounded-lg font-medium text-white py-3 px-6 mt-5 hover:cursor-pointer hover:bg-[#e86822]/90 ease-in-out duration-200" onClick={handleGoogleMaps}>
+                                    <button className="bg-[#e86822] rounded-lg font-medium text-white py-3 px-6 mt-3 md:mt-5 hover:cursor-pointer hover:bg-[#e86822]/90 ease-in-out duration-200" onClick={handleGoogleMaps}>
                                         <span className="flex gap-2">
                                             <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774127700/map-location-pin-svgrepo-com_zx5pxd.svg" alt="icon" className="w-[25px]" />
                                             <p>Open On Google Maps</p>
@@ -150,7 +151,7 @@ export default function PropertyDetailsPage(){
                                     <strong className="text-[#101549]">Address</strong>
                                     <p className="text-gray-600">{property.address}</p>
                                 </span>
-                                <div className="pt-4 text-gray-600 grid grid-cols-2 gap-x-5 gap-y-4 text-[0.9rem]">
+                                <div className="pt-4 text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-4 text-[0.9rem]">
                                     {address.map((a) => (
                                         <div key={a.title} className="flex gap-7">
                                             <strong className="text-[#101549]">{a.title}</strong>
@@ -163,9 +164,9 @@ export default function PropertyDetailsPage(){
 
                         {/* Details */}
                         <div className=" bg-white rounded-sm">
-                            <div className="max-w-[92%] mx-auto py-6">
+                            <div className="w-[84%] md:max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Details</h4>
-                                <div className="pt-5 text-gray-600 grid grid-cols-2 gap-5">
+                                <div className="pt-5 text-gray-600 grid grid-cols-1 md:grid-cols-2 gap-5">
                                     {details.map((d) => (
                                         <div key={d.title} className="w-[70%]">
                                             <span className="flex justify-between text-[0.9rem]">
@@ -180,9 +181,9 @@ export default function PropertyDetailsPage(){
 
                         {/* Features */}
                         <div className=" bg-white rounded-sm">
-                            <div className="max-w-[92%] mx-auto py-6">
+                            <div className="w-[84%] md:max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Features</h4>
-                                <div className="pt-5 text-gray-600 grid grid-cols-3 gap-5">
+                                <div className="pt-5 text-gray-600 grid grid-cols-2 md:grid-cols-3 gap-5">
                                     {property.amenities.map((a) => (
                                         <div key={a} className="flex gap-2 items-center">
                                             <img src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1774130055/check-svgrepo-com_yrcg01.svg" alt="icon" className="w-[22px]" />
@@ -197,7 +198,7 @@ export default function PropertyDetailsPage(){
                         <div className=" bg-white rounded-sm">
                             <div className="max-w-[92%] mx-auto py-6">
                                 <h4 className="text-[1.5rem] font-medium tracking-wide text-[#101549]">Location</h4>
-                                <div className="w-full h-[500px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm mt-6">
+                                <div className="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden border border-gray-100 shadow-sm mt-6">
                                     <iframe
                                         src={mapSrc}
                                         width="100%"
@@ -212,7 +213,7 @@ export default function PropertyDetailsPage(){
                         </div>
                     </section>
                     
-                    <section className=" col-span-1 w-full sticky top-6 h-fit" >
+                    <section className=" lg:col-span-1 lg:sticky top-6 h-fit" >
                         {/* profile */}
                         <div className=" bg-white rounded-sm w-full">
                             <div className=" flex flex-col justify-center items-center py-8">
@@ -250,7 +251,7 @@ export default function PropertyDetailsPage(){
                                 </span>
 
                             </div>
-                            <div className="w-[80%] mx-auto pb-8">
+                            <div className="w-[90%] md:w-[80%] mx-auto pb-8">
                              <EnquiryForm property={property}/>
                             </div>
                         </div>

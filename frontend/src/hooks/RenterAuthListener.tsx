@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useRenterAuthStore } from "../store/renter/RenterAuthStore";
-
 function RenterAuthListener() {
   const { user, isSignedIn, isLoaded } = useUser();
   const { createRenterProfile, fetchProfile } = useRenterAuthStore();
@@ -29,7 +28,7 @@ function RenterAuthListener() {
         // Create profile in backend (if not exists)
         await createRenterProfile();
         console.log("✅ Profile created/verified in backend");
-
+        
         // Fetch profile to populate local state
         await fetchProfile();
         console.log("✅ Profile fetched from backend");

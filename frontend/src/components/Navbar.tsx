@@ -1,12 +1,11 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { nonAuthNavLinks } from "../constants";
 import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import Sidebar from "./Sidebar";
 import { useLocation } from "react-router-dom";
-import { SignedIn, UserButton, useUser } from "@clerk/clerk-react";
+import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import { useLandlordAuthStore } from "../store/landlord/LandlordAuthStore";
-
 
 export default function Navbar() {
   const { isSignedIn } = useUser();
@@ -40,63 +39,48 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Links */}
-          { !SignedIn ? (
+          {/* Links — Bug 1 fix: !SignedIn → !isSignedIn */}
+          {!isSignedIn ? (
             <span className="hidden lg:flex gap-9 justify-center text-[#080e51] font-300 font-primary tracking-tight">
               {nonAuthNavLinks.map((link) => {
-                  const isActive = location.hash === link.id;
-
-                  return (
+                const isActive = location.hash === link.id;
+                return (
                   <div key={link.id}>
-                      <a href={link.id} className={`nav-link ${isActive ? "active" : ""}`}>{link.title}</a>
+                    <a href={link.id} className={`nav-link ${isActive ? "active" : ""}`}>
+                      {link.title}
+                    </a>
                   </div>
-                  )
-                  })}
+                );
+              })}
             </span>
-          ) : ""}
-          
-        
-          <div className="flex gap-2 ">
+          ) : null}
+
+          <div className="flex gap-2">
+            {/* Bug 2 fix: removed invalid object literal wrapping <SignInButton /> */}
             {isSignedIn ? (
-              profile?.role == "renter"  ? (
-                <>
-                <button>
-                  {/* todo: add heart button */}
-                  Favourites
-                </button>
+              profile?.role === "renter" ? (
                 <UserButton />
-              </>
-              ) : (<UserButton />)
-             ) : (<>
-                {/* Login button */}
-                <button className={`flex py-1 px-5 md:px-9 md:py-2 rounded-lg  text-[1.1rem] font-medium tracking-wider  ${scrolled ? "bg-[#e86822]/90 hover:bg-[#e86822]/80 shadow-sm text-white" : "bg-white text-[#080e51]"}
-                `}>
-                  Login
-                  <img
-                  src="https://res.cloudinary.com/dsljbxkfy/image/upload/v1773328969/wired-outline-500-fingerprint-security-hover-pinch_1_csoxif.png"
-                  alt="login"
-                  className={`hidden justify-center pl-2  ${scrolled ? "md:hidden" : "md:flex"}
-                  `}
-                  />
-                </button>
-              </>
+              ) : (
+                <UserButton />
+              )
+            ) : (
+              <SignInButton />
             )}
-            
 
             {/* Hamburger */}
-            <button
+            {!isSignedIn ? (
+              <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 className="lg:hidden hover:bg-[#e86822] hover:text-white hover:bg-opacity-20 p-2 rounded-lg transition-all"
                 aria-label="Toggle menu"
-            >
+              >
                 <Menu size={24} />
-            </button>
-          </div>      
-
+              </button>
+            ) : null}
+          </div>
         </section>
       </nav>
 
-      {/* Sidebar is now OUTSIDE <nav> — no longer inherits nav's background */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>
   );

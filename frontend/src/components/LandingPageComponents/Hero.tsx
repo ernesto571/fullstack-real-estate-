@@ -8,11 +8,14 @@ export default function Hero() {
   const { openSignUp } = useClerk();
   const { isSignedIn } = useUser();
   const navigate = useNavigate()
+  
   const handleRenterBrowse = () => {
-    if (isSignedIn) {
-      navigate("/listings"); // ✅ already signed in — go directly
+    if (!isSignedIn) {
+      openSignUp({ fallbackRedirectUrl: "/listings" }); // ✅ not signed in — show modal
+      // ✅ already signed in — go directly
     } else {
-      openSignUp({ afterSignUpUrl: "/listings" }); // ✅ not signed in — show modal
+      navigate("/listings"); // ✅ already signed in — go directly
+      
     }
   };
 
@@ -20,7 +23,7 @@ export default function Hero() {
     if (isSignedIn) {
       navigate("/dashboard"); // ✅ already signed in — go directly
     } else {
-      openSignUp({ afterSignUpUrl: "/dashboard" }); // ✅ not signed in — show modal
+      openSignUp({ fallbackRedirectUrl: "/dashboard" }); // ✅ not signed in — show modal
     }
   };
 

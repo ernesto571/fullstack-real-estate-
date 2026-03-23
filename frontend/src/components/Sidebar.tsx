@@ -23,7 +23,7 @@ export default function Sidebar ({ isOpen, onClose }: SidebarProps){
           onClick={onClose}
         ></div>
       )}
-
+ 
       {/* Sidebar */}
       <div
         className={`fixed top-0 right-0 z-50 h-full w-[70%] md:w-[50%]  bg-white  shadow-2xl transform transition-transform duration-300 ease-in-out

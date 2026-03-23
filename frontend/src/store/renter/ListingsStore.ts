@@ -34,31 +34,56 @@ interface ListingsStore {
     isLoading: boolean;
     error: string | null;
     fetchListings: () => Promise<void>;
+    // Add the search function definition here
+    searchListings: (query: string) => Promise<void>;
 }
 
-export const useListingsStore = create<ListingsStore>((set) => ({
+export const useListingsStore = create<ListingsStore>((set, get) => ({
     allListings: [],
-    isLoading: false,
+    isLoading: true, // Start as true if you're fetching on mount
     error: null,
 
-    // fetch Listings
+    // Fetch all listings
     fetchListings: async () => {
-        set({ isLoading: true, error: null })
+        set({ isLoading: true, error: null });
         try {
-            const res = await axios.get("/renter/listings")
-            console.log("Fetches Listings", res.data.data)
-            set({ allListings: res.data.data, isLoading: false })
-        } catch (error:any) {
-            console.error("Fetch Listings Error:", error)
-            const errorMessage = error.response?.data?.error || "Failed to fetch Listings";
-            set({
-                error: errorMessage,
+            const res = await axios.get("/renter/listings");
+            set({ allListings: res.data.data, isLoading: false });
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.error || "Failed to fetch listings";
+            set({ error: errorMessage, isLoading: false, allListings: [] });
+            toast.error(errorMessage);
+        }
+    },
+
+    // New search function
+    searchListings: async (query: string) => {
+        // Optimization: If search bar is cleared, just fetch all listings again
+        if (!query.trim()) {
+            return get().fetchListings();
+        }
+
+        set({ isLoading: true, error: null });
+        try {
+            // This matches the /listings/search route in your Express router
+            const res = await axios.get(`/renter/listings/search?q=${encodeURIComponent(query)}`);
+            
+            set({ 
+                allListings: res.data.data, 
+                isLoading: false 
+            });
+        } catch (error: any) {
+            console.error("Search error:", error);
+            const errorMessage = error.response?.data?.error || "Search failed";
+            
+            set({ 
+                error: errorMessage, 
                 isLoading: false,
-                allListings: [],
-              });
+                allListings: [] 
+            });
             toast.error(errorMessage);
         }
     }
-}))
+}));
 
 
