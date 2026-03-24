@@ -1,13 +1,16 @@
 import axiosLib from "axios";
 
 const axios = axiosLib.create({
-  baseURL: import.meta.env.BACKEND_URL || "http://localhost:3001/api",
+ baseURL: import.meta.env.DEV
+    ? "http://localhost:3001/api"
+    : import.meta.env.VITE_BACKEND_URL,
 });
 
 axios.interceptors.request.use(async (config) => {
   console.log("🌐 Making request to:", config.url);
 
   const token = await window.Clerk?.session?.getToken();
+
   console.log("🔑 Token exists:", !!token);
 
   if (token) {
@@ -25,7 +28,6 @@ axios.interceptors.request.use(async (config) => {
 
   return config;
 });
-
 
 axios.interceptors.response.use(
   (response) => {
